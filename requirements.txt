@@ -1,0 +1,14 @@
+speech_recognition
+pyttsx3
+datetime
+wikipedia
+webbrowser
+os
+time
+subprocess
+wolframalpha
+json
+requests
+schedule
+calendar
+pyjokes
