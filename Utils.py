@@ -12,6 +12,22 @@ import requests
 import schedule
 import calendar
 import pyjokes
+from scipy.io.wavfile import write
+import numpy as np
+import deepspeech
+
+model_file_path = 'dspeech/deepspeech-0.9.3-models.tflite'
+model = deepspeech.Model(model_file_path)
+
+scorer_file_path = 'dspeech/deepspeech-0.9.3-models.scorer'
+model.enableExternalScorer(scorer_file_path)
+
+#lm_alpha = 0.75
+#lm_beta = 1.85
+#model.setScorerAlphaBeta(lm_alpha, lm_beta)
+
+#beam_width = 500
+#model.setBeamWidth(beam_width)
 
 engine = pyttsx3.init()
 voices = engine.getProperty('voices')
@@ -41,15 +57,18 @@ def wishMe():
 
 def takeCommand():
     r = sr.Recognizer()
-    with sr.Microphone() as source:
+    with sr.Microphone(sample_rate = 16000)  as source:
+        r.adjust_for_ambient_noise(source, duration=0.5)
         print("Listening...")
-        audio = r.listen(source)
-
+        audio = r.listen(source, phrase_time_limit=8)
+        audio16 = np.frombuffer(audio.frame_data, dtype=np.int16)
+        text = model.stt(audio16)
         try:
-            statement = r.recognize_google(audio, language='en-in')
+            statement = text
             print(f"user said:{statement}\n")
 
         except Exception as e:
+            print(e)
             speak("Pardon me, please say that again")
             return "None"
         return statement
