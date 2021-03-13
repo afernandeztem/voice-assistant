@@ -9,7 +9,6 @@ import subprocess
 import wolframalpha
 import json
 import requests
-import schedule
 import calendar
 import pyjokes
 from scipy.io.wavfile import write
