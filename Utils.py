@@ -57,7 +57,7 @@ def wishMe():
 def takeCommand():
     r = sr.Recognizer()
     with sr.Microphone(sample_rate = 16000)  as source:
-        r.adjust_for_ambient_noise(source, duration=0.5)
+        r.adjust_for_ambient_noise(source)
         print("Listening...")
         audio = r.listen(source, phrase_time_limit=8)
         audio16 = np.frombuffer(audio.frame_data, dtype=np.int16)

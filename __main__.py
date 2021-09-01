@@ -47,8 +47,7 @@ if __name__=='__main__':
         elif 'ask' in statement:
             speak('I can answer to computational and geographical questions  and what question do you want to ask now')
             question=takeCommand()
-            app_id="W7R2HL-L65LV7QLX6"
-            client = wolframalpha.Client('R2K75H-7ELALHR35X')
+            client = wolframalpha.Client('write here your api key')
             res = client.query(question)
             answer = next(res.results).text
             speak(answer)
@@ -65,7 +64,7 @@ if __name__=='__main__':
             print("I was built by Angel")
 
         elif "weather" in statement:
-            api_key = "63b8ac199a994e3ebb70fb575f92e650"
+            api_key = "write here your api key"
             base_url = "https://api.openweathermap.org/data/2.5/weather?"
             speak("what is the city name")
             city_name = takeCommand()
